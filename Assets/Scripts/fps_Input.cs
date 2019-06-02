@@ -18,7 +18,7 @@ public class fps_Input : MonoBehaviour
 
     private void AddButton(string n, KeyCode k)
     {
-        if(buttons.ContainsKey(n))
+        if(!buttons.ContainsKey(n))
             buttons[n] = k;
 
     }
@@ -47,6 +47,7 @@ public class fps_Input : MonoBehaviour
         {
             if(buttons.Count == 0)
             {
+                Debug.Log("buttons.count");
                 AddButton("Fire", KeyCode.Mouse0);
                 AddButton("Reload", KeyCode.R);
                 AddButton("Jump", KeyCode.Space);

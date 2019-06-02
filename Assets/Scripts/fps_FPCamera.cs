@@ -30,7 +30,7 @@ public class fps_FPCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        Debug.Log(x_Angle.ToString() + " " + y_Angle.ToString());
+        //Debug.Log(x_Angle.ToString() + " " + y_Angle.ToString());
         Quaternion xQuaternion = Quaternion.AngleAxis(y_Angle, Vector3.up);
         Quaternion yQuaternion = Quaternion.AngleAxis(0, Vector3.left);
         m_Transform.parent.rotation = xQuaternion * yQuaternion;
@@ -44,7 +44,7 @@ public class fps_FPCamera : MonoBehaviour
     {
         if (parameter.inputSmoothLook == Vector2.zero)
         {
-            Debug.Log("vector2 == zero");
+            //Debug.Log("vector2 == zero");
             return;
         }
             
