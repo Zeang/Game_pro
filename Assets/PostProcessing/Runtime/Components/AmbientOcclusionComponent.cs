@@ -84,7 +84,7 @@ namespace UnityEngine.PostProcessing
 
         public override CameraEvent GetCameraEvent()
         {
-            return ambientOnlySupported && !context.profile.debugViews.IsModeActive(DebugMode.AmbientOcclusion)
+            return ambientOnlySupported && !context.profile.DebugViews.IsModeActive(DebugMode.AmbientOcclusion)
                    ? CameraEvent.BeforeReflections
                    : CameraEvent.BeforeImageEffectsOpaque;
         }
@@ -133,7 +133,7 @@ namespace UnityEngine.PostProcessing
             cb.Blit(rtBlur, rtMask, material, 5);
             cb.ReleaseTemporaryRT(rtBlur);
 
-            if (context.profile.debugViews.IsModeActive(DebugMode.AmbientOcclusion))
+            if (context.profile.DebugViews.IsModeActive(DebugMode.AmbientOcclusion))
             {
                 cb.SetGlobalTexture(Uniforms._MainTex, rtMask);
                 cb.Blit(rtMask, BuiltinRenderTextureType.CameraTarget, material, 8);

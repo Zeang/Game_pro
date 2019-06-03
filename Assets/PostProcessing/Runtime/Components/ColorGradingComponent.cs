@@ -390,7 +390,7 @@ namespace UnityEngine.PostProcessing
             }
 
             uberMaterial.EnableKeyword(
-                context.profile.debugViews.IsModeActive(DebugMode.PreGradingLog)
+                context.profile.DebugViews.IsModeActive(DebugMode.PreGradingLog)
                 ? "COLOR_GRADING_LOG_VIEW"
                 : "COLOR_GRADING"
                 );

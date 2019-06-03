@@ -148,8 +148,8 @@ namespace UnityEngine.PostProcessing
             uberMaterial.EnableKeyword("EYE_ADAPTATION");
             uberMaterial.SetTexture(Uniforms._AutoExposure, m_CurrentAutoExposure);
 
-            // Generate debug histogram
-            if (context.profile.debugViews.IsModeActive(BuiltinDebugViewsModel.Mode.EyeAdaptation))
+            // Generate Debug histogram
+            if (context.profile.DebugViews.IsModeActive(BuiltinDebugViewsModel.Mode.EyeAdaptation))
             {
                 if (m_DebugHistogram == null || !m_DebugHistogram.IsCreated())
                 {

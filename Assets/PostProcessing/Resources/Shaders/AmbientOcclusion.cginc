@@ -414,7 +414,7 @@ half4 FragComposition(VaryingsMultitex i) : SV_Target
     half ao = BlurSmall(_OcclusionTexture, i.uvSPR, delta);
     half4 color = tex2D(_MainTex, i.uvSPR);
 
-#if !defined(DEBUG_COMPOSITION)
+#if !defined(Debug_COMPOSITION)
     color.rgb *= 1.0 - EncodeAO(ao);
 #else
     color.rgb = 1.0 - EncodeAO(ao);

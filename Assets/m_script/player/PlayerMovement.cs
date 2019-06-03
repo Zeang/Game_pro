@@ -2,6 +2,7 @@
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform cameratranform;
     public float speed = 6f;
     Vector3 movement;//存储移动信息并加在玩家身上
     Animator anim;
@@ -13,18 +14,22 @@ public class PlayerMovement : MonoBehaviour
     {
         floorMask = LayerMask.GetMask("Floor");//传入我们要获取的layer对应的字符串
         anim = GetComponent<Animator>();
+ 
         playerRigidbody = GetComponent<Rigidbody>();
         ph = GetComponent<PlayerHealth>();
+
        
 
     }
     void FixedUpdate()//固定时间间隔被调用，跟物理引擎一起被更新
     {
+       
 
         float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
         float v = Input.GetAxisRaw("Vertical");//从纵轴获取输入
         Move(h, v);
-        Turning();
+        Turning();//要删
+        //transform.forward = cameratranform.forward;
         animating(h, v);
     }
     void Move(float h,float v)
@@ -36,11 +41,13 @@ public class PlayerMovement : MonoBehaviour
     }
     void Turning()//不需要参数，因为角色的朝向是基于鼠标的位置，而不是我们保存的输入
     {
+        Debug.Log(Input.mousePosition);
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);//从camera发射一条射线打在鼠标位置上(如果这行报错，可能是camera没有设置tag为main
         RaycastHit floorHit;
         if(Physics.Raycast(camRay,out floorHit, camRayLength, floorMask))//如果击中某物
         {
-            Vector3 playerToMouse = floorHit.point - transform.position;
+            Debug.Log("enter");
+            Vector3 playerToMouse = floorHit.point - transform.position;//要取负
             playerToMouse.y = 0f;
             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
             playerRigidbody.MoveRotation(newRotation);

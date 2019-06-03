@@ -108,7 +108,7 @@ Shader "Hidden/Post FX/Ambient Occlusion"
             CGPROGRAM
                 #pragma vertex VertMultitex
                 #pragma fragment FragComposition
-                #define DEBUG_COMPOSITION
+                #define Debug_COMPOSITION
                 #include "AmbientOcclusion.cginc"
             ENDCG
         }

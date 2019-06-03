@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
-
-    public class PlayerShooting : MonoBehaviour
+public class PlayerShooting : MonoBehaviour
     {
         public int damagePerShot = 20;                  // The damage inflicted by each bullet.
         public float timeBetweenBullets = 0.15f;        // The time between each shot.
@@ -23,6 +23,7 @@ using UnityEngine.SceneManagement;
         float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
         GameObject player;
         PlayerHealth enemyHealth;
+        public Transform playertrans;
 
         void Awake ()
         {
@@ -100,10 +101,11 @@ using UnityEngine.SceneManagement;
             // Enable the line renderer and set it's first position to be the end of the gun.
             gunLine.enabled = true;
             gunLine.SetPosition (0, transform.position);//起始点是枪管的位置
+            Debug.Log("gunline" + transform.position + playertrans.position);
 
             // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
             shootRay.origin = transform.position;
-            shootRay.direction = transform.forward;
+            shootRay.direction = transform.forward ;
 
             // Perform the raycast against gameobjects on the shootable layer and if it hits something...
             if(Physics.Raycast (shootRay, out shootHit, range, shootableMask))
@@ -121,6 +123,9 @@ using UnityEngine.SceneManagement;
                     // ... the enemy should take damage.
                     g.GetComponent<EnemyHealth>().TakeDamage (damagePerShot, shootHit.point);
                     Debug.Log(g.GetComponent<EnemyHealth>());
+                    Quaternion fireRotation = Quaternion.Euler(transform.forward);
+                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    Instantiate(gb,shootHit.point, fireRotation);
                 }
 
                 // Set the second position of the line renderer to the point the raycast hit.

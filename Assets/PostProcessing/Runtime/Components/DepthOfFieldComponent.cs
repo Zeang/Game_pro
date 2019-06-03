@@ -130,7 +130,7 @@ namespace UnityEngine.PostProcessing
             // Pass #4 - Postfilter blur
             Graphics.Blit(rt2, rt1, material, 7);
 
-            if (context.profile.debugViews.IsModeActive(DebugMode.FocusPlane))
+            if (context.profile.DebugViews.IsModeActive(DebugMode.FocusPlane))
             {
                 uberMaterial.SetVector(Uniforms._DepthOfFieldParams, new Vector2(s1, coeff));
                 uberMaterial.EnableKeyword("DEPTH_OF_FIELD_COC_VIEW");

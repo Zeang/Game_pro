@@ -1469,7 +1469,7 @@ Use the following cgc options,
 ------------------------------------------------------------------------------
 NVSHADERPERF OUTPUT
 ------------------------------------------------------------------------------
-For reference and to aid in debug, output of NVShaderPerf should match this,
+For reference and to aid in Debug, output of NVShaderPerf should match this,
 
 Shader to schedule:
 0: texpkb h0.w(TRUE), v5.zyxx, #0
@@ -1761,7 +1761,7 @@ Will look at fixing this for FXAA 3.12.
 ------------------------------------------------------------------------------
 NVSHADERPERF OUTPUT
 ------------------------------------------------------------------------------
-For reference and to aid in debug, output of NVShaderPerf should match this,
+For reference and to aid in Debug, output of NVShaderPerf should match this,
 
 Shader to schedule:
 0: texpkb h0.w(TRUE), v5.zyxx, #0

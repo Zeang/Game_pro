@@ -108,7 +108,7 @@ namespace UnityEngine.PostProcessing
             context.camera = m_Camera;
 
             // Prepare components
-            m_DebugViews.Init(context, profile.debugViews);
+            m_DebugViews.Init(context, profile.DebugViews);
             m_AmbientOcclusion.Init(context, profile.ambientOcclusion);
             m_ScreenSpaceReflection.Init(context, profile.screenSpaceReflection);
             m_MotionBlur.Init(context, profile.motionBlur);
@@ -144,7 +144,7 @@ namespace UnityEngine.PostProcessing
             context.camera.depthTextureMode = flags;
 
             // Temporal antialiasing jittering, needs to happen before culling
-            if (!m_RenderingInSceneView && m_Taa.active && !profile.debugViews.willInterrupt)
+            if (!m_RenderingInSceneView && m_Taa.active && !profile.DebugViews.willInterrupt)
                 m_Taa.SetProjectionMatrix();
         }
 
@@ -279,11 +279,11 @@ namespace UnityEngine.PostProcessing
             if (profile == null || m_Camera == null)
                 return;
 
-            if (m_EyeAdaptation.active && profile.debugViews.IsModeActive(DebugMode.EyeAdaptation))
+            if (m_EyeAdaptation.active && profile.DebugViews.IsModeActive(DebugMode.EyeAdaptation))
                 m_EyeAdaptation.OnGUI();
-            else if (m_ColorGrading.active && profile.debugViews.IsModeActive(DebugMode.LogLut))
+            else if (m_ColorGrading.active && profile.DebugViews.IsModeActive(DebugMode.LogLut))
                 m_ColorGrading.OnGUI();
-            else if (m_UserLut.active && profile.debugViews.IsModeActive(DebugMode.UserLut))
+            else if (m_UserLut.active && profile.DebugViews.IsModeActive(DebugMode.UserLut))
                 m_UserLut.OnGUI();
         }
 

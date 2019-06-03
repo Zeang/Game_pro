@@ -6,7 +6,7 @@ namespace UnityEngine.PostProcessing
     {
         #pragma warning disable 0169 // "field x is never used"
 
-        public BuiltinDebugViewsModel debugViews = new BuiltinDebugViewsModel();
+        public BuiltinDebugViewsModel DebugViews = new BuiltinDebugViewsModel();
         public AntialiasingModel antialiasing = new AntialiasingModel();
         public AmbientOcclusionModel ambientOcclusion = new AmbientOcclusionModel();
         public ScreenSpaceReflectionModel screenSpaceReflection = new ScreenSpaceReflectionModel();

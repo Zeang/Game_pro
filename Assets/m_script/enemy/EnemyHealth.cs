@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
     public int startingHealth = 100;
     public int currentHealth;
+    public float per;//slider的数值
     public float sinkSpeed = 2.5f;//敌人死了以后沉入地下的速度
     public int scoreValue = 10;//每个敌人死掉以后可以增加多少分数
     public AudioClip deathClip;
+    public Slider sl;
 
 
     Animator anim;
@@ -23,6 +26,8 @@ public class EnemyHealth : MonoBehaviour
         hitParticles = GetComponentInChildren <ParticleSystem> ();//在子对象中寻找组件
         capsuleCollider = GetComponent <CapsuleCollider> ();
         currentHealth = startingHealth;
+        per = 1;
+        sl.value = 1;
     }
 
 
@@ -32,6 +37,7 @@ public class EnemyHealth : MonoBehaviour
         {
             transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);//每秒移动而不是每帧
         }
+        sl.value = per;
     }
 
 
@@ -44,6 +50,7 @@ public class EnemyHealth : MonoBehaviour
         //enemyAudio.Play ();
 
         currentHealth -= amount;
+        per = (float)currentHealth / (float)startingHealth;
             
         //hitParticles.transform.position = hitPoint;
         //hitParticles.Play();
@@ -71,9 +78,9 @@ public class EnemyHealth : MonoBehaviour
 
     public void StartSinking ()
     {
-        GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;//禁用一个组件
-        GetComponent <Rigidbody> ().isKinematic = true;//不受物理力控制
-        isSinking = true;
+        //GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;//禁用一个组件
+        //GetComponent <Rigidbody> ().isKinematic = true;//不受物理力控制
+        //isSinking = true;
         ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
     }

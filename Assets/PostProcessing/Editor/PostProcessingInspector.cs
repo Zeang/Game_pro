@@ -159,7 +159,7 @@ namespace UnityEditor.PostProcessing
                     editor.Value.OnValidate();
             }
 
-            if (!m_ConcreteTarget.debugViews.IsModeActive(BuiltinDebugViewsModel.Mode.None))
+            if (!m_ConcreteTarget.DebugViews.IsModeActive(BuiltinDebugViewsModel.Mode.None))
                 EditorGUILayout.HelpBox("A debug view is currently enabled. Changes done to an effect might not be visible.", MessageType.Info);
 
             foreach (var editor in m_CustomEditors)
