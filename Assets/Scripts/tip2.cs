@@ -37,7 +37,7 @@ public class tip2 : MonoBehaviour
     public void onOK()
     {
         gameObject.SetActive(false);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(7);
     }
 
     public void onClose()
