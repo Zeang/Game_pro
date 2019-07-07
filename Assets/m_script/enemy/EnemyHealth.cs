@@ -9,7 +9,9 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;//敌人死了以后沉入地下的速度
     public int scoreValue = 10;//每个敌人死掉以后可以增加多少分数
     public AudioClip deathClip;
-    public Slider sl;
+    PlayerHealth playerHealth;
+    // public Slider sl;
+    GameObject player;
 
 
     Animator anim;
@@ -26,8 +28,10 @@ public class EnemyHealth : MonoBehaviour
         hitParticles = GetComponentInChildren <ParticleSystem> ();//在子对象中寻找组件
         capsuleCollider = GetComponent <CapsuleCollider> ();
         currentHealth = startingHealth;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
         per = 1;
-        sl.value = 1;
+       // sl.value = 1;
     }
 
 
@@ -37,7 +41,12 @@ public class EnemyHealth : MonoBehaviour
         {
             transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);//每秒移动而不是每帧
         }
-        sl.value = per;
+        if (playerHealth.isDead)
+        {
+            Destroy(gameObject, 2f);
+        }
+
+        //sl.value = per;
     }
 
 

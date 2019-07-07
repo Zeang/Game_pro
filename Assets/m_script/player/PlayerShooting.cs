@@ -9,6 +9,7 @@ public class PlayerShooting : MonoBehaviour
         public int damagePerShot = 20;                  // The damage inflicted by each bullet.
         public float timeBetweenBullets = 0.15f;        // The time between each shot.
         public float range = 100f;                      // The distance the gun can fire.
+        
 
 
         float timer;                                    // A timer to determine when to fire.
@@ -40,7 +41,7 @@ public class PlayerShooting : MonoBehaviour
 			faceLight = GetComponentInChildren<Light> ();
         }
 
-
+      
         void Update ()
         {
             // Add the time since Update was last called to the timer.
@@ -105,7 +106,7 @@ public class PlayerShooting : MonoBehaviour
 
             // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
             shootRay.origin = transform.position;
-            shootRay.direction = transform.forward ;
+            shootRay.direction = -transform.forward ;
 
             // Perform the raycast against gameobjects on the shootable layer and if it hits something...
             if(Physics.Raycast (shootRay, out shootHit, range, shootableMask))

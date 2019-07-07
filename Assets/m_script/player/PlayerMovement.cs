@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,33 +11,48 @@ public class PlayerMovement : MonoBehaviour
     int floorMask;//存储地板，使ray只照射在地板上
     float camRayLength=100f;//存储摄像机射线的长度
     PlayerHealth ph;
+    public Transform[] spawnPoints;
+    public int playerID;
+    Character maoxianzhe;
     void Awake()//无论脚本是否可运行都会执行，适合用于设置初始值
     {
+        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
         floorMask = LayerMask.GetMask("Floor");//传入我们要获取的layer对应的字符串
         anim = GetComponent<Animator>();
  
         playerRigidbody = GetComponent<Rigidbody>();
         ph = GetComponent<PlayerHealth>();
-
+       /* Character maoxianzhe = (Character)AssetDatabase.LoadAssetAtPath<Character>("Assets/CharacterAsset/Shengtu1.asset");
+        Mesh newMesh =maoxianzhe.fbx.GetComponent<Mesh>();
+        SkinnedMeshRenderer meshrender = GetComponent<SkinnedMeshRenderer>();
+        meshrender.sharedMesh=newMesh;*/
        
 
+    }
+  public int getID()
+    {
+        return 1;
     }
     void FixedUpdate()//固定时间间隔被调用，跟物理引擎一起被更新
     {
-       
-
         float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
         float v = Input.GetAxisRaw("Vertical");//从纵轴获取输入
         Move(h, v);
-        Turning();//要删
+        //Turning();//要删
         //transform.forward = cameratranform.forward;
         animating(h, v);
     }
-    void Move(float h,float v)
+    public void Move(float h,float v)
     {
-        movement.Set(h, 0f, v);//x,y,z不需要y方向
-        movement = movement.normalized * speed * Time.deltaTime;//为了使每个方向跑的一样快，为了使每秒移动6个单元
-        playerRigidbody.MovePosition(transform.position+movement);//会将刚体移动到世界空间的某个坐标，所以需要把它与角色当前所在的坐标关连
+        //movement.Set(h, 0f, v);//x,y,z不需要y方向
+        //movement = movement.normalized * speed * Time.deltaTime;//为了使每个方向跑的一样快，为了使每秒移动6个单元
+        // playerRigidbody.MovePosition(transform.position+movement);//会将刚体移动到世界空间的某个坐标，所以需要把它与角色当前所在的坐标关连
+        Vector3 targetDirection = new Vector3(h, 0, v);
+        float y = Camera.main.transform.rotation.eulerAngles.y;
+        targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;
+
+        transform.Translate(targetDirection * Time.deltaTime * speed, Space.World);
+
 
     }
     void Turning()//不需要参数，因为角色的朝向是基于鼠标的位置，而不是我们保存的输入

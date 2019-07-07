@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int startingHealth = 100;
-    public int currentHealth;
+    public int currentHealth=100;
     public Slider healthSlider;
+
     public Image damageImage;
     public AudioClip deathClip;
     public float flashSpeed = 5f;
@@ -19,17 +20,22 @@ public class PlayerHealth : MonoBehaviour
     AudioSource playerAudio;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
-    bool isDead;
+    public bool isDead=false;
     bool damaged;
 
+    public int getHP()
+    {
+        return currentHealth;
 
+    }
     void Awake ()
     {
         anim = GetComponent <Animator> ();
         playerAudio = GetComponent <AudioSource> ();
         playerMovement = GetComponent <PlayerMovement> ();
         playerShooting = GetComponentInChildren <PlayerShooting> ();
-        currentHealth = startingHealth;
+      
+
     }
 
 
@@ -75,9 +81,12 @@ public class PlayerHealth : MonoBehaviour
         anim.SetTrigger ("Die");
         //playerAudio.clip = deathClip;
         //playerAudio.Play ();
-
+        healthSlider.enabled = false;
+        damageImage.enabled = false;
+        Destroy(gameObject, 2f);
         playerMovement.enabled = false;
         playerShooting.enabled = false;
+       
     }
 
 
