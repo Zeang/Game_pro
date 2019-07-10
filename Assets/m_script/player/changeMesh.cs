@@ -6,7 +6,7 @@ public class changeMesh : MonoBehaviour
 {
     public Mesh []otherMesh;
     private SkinnedMeshRenderer smeshrender;
-    int count = 0;
+    public int count = 0;
     Material[] m;
     
     // Start is called before the first frame update
@@ -16,7 +16,10 @@ public class changeMesh : MonoBehaviour
         m = smeshrender.sharedMaterials;
     }
     
-       
+    public void setCount(int characterID)
+    {
+        count = characterID;
+    } 
 
         
     public int getCharacter()

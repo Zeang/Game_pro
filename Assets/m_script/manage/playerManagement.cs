@@ -17,6 +17,7 @@ public class playerManagement : MonoBehaviour
     public Vector3 ra = new Vector3(0, 0, 0); //实例化预制体的position，可自定义
     public Quaternion rb = new Quaternion(0, 0, 0, 0);//实例化预制体的rotation，可自定义
     bool isdead=false;
+    public Mesh characterMesh;
     void Start()
     {
        
@@ -25,7 +26,14 @@ public class playerManagement : MonoBehaviour
         ph = myplayer.GetComponent<PlayerHealth>();
         ph.healthSlider = hSlider;
         ph.damageImage = dImage;
+       
+        
 
+    }
+   
+    public float getDeathtime()
+    {
+        return curTime;
     }
     void FixedUpdate()
     {
