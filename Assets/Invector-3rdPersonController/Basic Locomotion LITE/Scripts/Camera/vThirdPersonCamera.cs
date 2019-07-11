@@ -24,6 +24,7 @@ public class vThirdPersonCamera : MonoBehaviour
 
     #region inspector properties    
 
+    public GameObject targ;
     public Transform target;
     [Tooltip("Lerp speed between Camera States")]
     public float smoothCameraRotation = 12f;    
@@ -76,15 +77,18 @@ public class vThirdPersonCamera : MonoBehaviour
 
     #endregion
 
-    void Start()
-    {
-        Init();
-    }
+  
 
-    public void Init()
+    public void Start()
     {
+        target = targ.transform;
         if (target == null)
+        {
+           
+
             return;
+        }
+        Debug.Log("target"+targ);
 
         _camera = GetComponent<Camera>();
         currentTarget = target;
@@ -100,6 +104,8 @@ public class vThirdPersonCamera : MonoBehaviour
 
         distance = defaultDistance;
         currentHeight = height;
+        PlayerMovement pm = target.GetComponent<PlayerMovement>();
+        Debug.Log("pmID"+pm.playerID);
     }
 
     void FixedUpdate()
@@ -125,7 +131,7 @@ public class vThirdPersonCamera : MonoBehaviour
         currentTarget = newTarget;
         mouseY = currentTarget.rotation.eulerAngles.x;
         mouseX = currentTarget.rotation.eulerAngles.y;
-        Init();
+        Start();
     }
 
     /// <summary>    

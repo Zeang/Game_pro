@@ -14,14 +14,19 @@ public class PlayerMovement : MonoBehaviour
     public Transform[] spawnPoints;
     public int playerID;
     Character maoxianzhe;
+    public GameObject gunhead;
+    public GameObject cm;
+    public GameObject akai;
+    public changeMesh changerole;
     void Awake()//无论脚本是否可运行都会执行，适合用于设置初始值
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
         floorMask = LayerMask.GetMask("Floor");//传入我们要获取的layer对应的字符串
         anim = GetComponent<Animator>();
- 
+    
         playerRigidbody = GetComponent<Rigidbody>();
         ph = GetComponent<PlayerHealth>();
+        changerole = akai.GetComponent<changeMesh>();
        /* Character maoxianzhe = (Character)AssetDatabase.LoadAssetAtPath<Character>("Assets/CharacterAsset/Shengtu1.asset");
         Mesh newMesh =maoxianzhe.fbx.GetComponent<Mesh>();
         SkinnedMeshRenderer meshrender = GetComponent<SkinnedMeshRenderer>();

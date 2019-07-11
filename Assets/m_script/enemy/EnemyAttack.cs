@@ -8,16 +8,17 @@ public class EnemyAttack : MonoBehaviour
 
 
     Animator anim;
-    GameObject player;
+    public playerManagement playermanagement;
+    public GameObject player;
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     bool playerInRange;
     float timer;//保证敌人的速度不会太快
-
+   
 
     void Awake ()
     {
-        player = GameObject.FindGameObjectWithTag ("Player");
+       
         playerHealth = player.GetComponent <PlayerHealth> ();
         Debug.Log("playerhealth"+playerHealth);
         enemyHealth = GetComponent<EnemyHealth>();
@@ -56,6 +57,7 @@ public class EnemyAttack : MonoBehaviour
         {
             GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
             anim.SetTrigger ("PlayerDead");
+            Destroy(gameObject,2f);
         }
     }
 

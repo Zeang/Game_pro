@@ -14,8 +14,6 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip deathClip;
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);//红色，透明度0.1
-
-
     Animator anim;
     AudioSource playerAudio;
     PlayerMovement playerMovement;
@@ -44,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         if(damaged)
         {
             damageImage.color = flashColour;
+            Debug.Log("flash");
         }
         else
         {
@@ -56,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage (int amount)
     {
         damaged = true;
+        Debug.Log("i'm damaged1");
 
         currentHealth -= amount;
 

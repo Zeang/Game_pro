@@ -158,7 +158,7 @@ namespace Invector.CharacterController
                 if (tpCamera)
                 {
                     tpCamera.SetMainTarget(this.transform);
-                    tpCamera.Init();
+                    tpCamera.Start();
                 }
             }            
         }

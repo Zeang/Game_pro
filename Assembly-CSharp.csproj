@@ -94,6 +94,7 @@
     <Compile Include="Assets\m_script\player\PlayerHealth.cs" />
     <Compile Include="Assets\m_script\player\PlayerMovement.cs" />
     <Compile Include="Assets\m_script\player\PlayerShooting.cs" />
+    <Compile Include="Assets\playerInit.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
