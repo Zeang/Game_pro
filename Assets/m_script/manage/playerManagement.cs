@@ -57,10 +57,11 @@ public class playerManagement : MonoBehaviour
                 ph.enabled = false;
                 pm.enabled = false;
                 ps.enabled = false;
-                
-                
 
-                
+                myplayer[i].GetComponent<Invector.CharacterController.vThirdPersonInput>().enabled = false;
+                myplayer[i].GetComponent<Invector.CharacterController.vThirdPersonController>().enabled = false;
+
+
             }
             else
             {

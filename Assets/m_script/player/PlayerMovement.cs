@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
         float v = Input.GetAxisRaw("Vertical");//从纵轴获取输入
-        Move(h, v);
+        Move(h*5, v*5);
         //Turning();//要删
         //transform.forward = cameratranform.forward;
         animating(h, v);

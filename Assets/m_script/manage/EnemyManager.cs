@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -6,13 +8,27 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemy;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
+    public int maxEnemyNum = 5;
 
+
+    private List<GameObject> Enemies = new List<GameObject>();
 
     void Start()
     {
 
 
         InvokeRepeating("Spawn", spawnTime, spawnTime);
+    }
+
+    private void Update()
+    {
+        foreach(GameObject item in Enemies)
+        {
+            if (!item)
+            {
+                Enemies.Remove(item);
+            }
+        }
     }
 
 
@@ -28,7 +44,8 @@ public class EnemyManager : MonoBehaviour
 
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-            Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            if(Enemies.Count<maxEnemyNum)
+            Enemies.Add(Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation));
 
 
         }
