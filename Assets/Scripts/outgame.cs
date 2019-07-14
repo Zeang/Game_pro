@@ -8,7 +8,11 @@ public class outgame : MonoBehaviour
 {
     public void OnLoginButtonClick()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(7);
+    }
+    public void WinButtonClick()
+    {
+        SceneManager.LoadScene(4);
     }
 
 }

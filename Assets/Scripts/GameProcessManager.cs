@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameProcessManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class GameProcessManager : MonoBehaviour
     public float winTime = 10.0f;//占点直到获得胜利的时间
     public float EndTime = 900.0f;//游戏结束的时间
     public float SearchArea = 1.5f;//感应区的大小
+    public Text totalTime = null;
+    public Text occupyTime = null;
 
     private playerManagement playerManager = null;
     public GameObject[] leftPlayer = null;
@@ -58,6 +62,11 @@ public class GameProcessManager : MonoBehaviour
             fhz = fhzObject.GetComponent<fhz>();
         }
         projector = GetComponent<Projector>();
+
+        if (occupyTime)
+        {
+            occupyTime.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -126,6 +135,8 @@ public class GameProcessManager : MonoBehaviour
                     fhz.ActiveFhz();
                     projector.material.SetColor("_Color", leftColor);
                     fhzMat.SetColor("_Emission", leftColor);
+                    occupyTime.GetComponent<Shadow>().effectColor = leftColor;
+                    occupyTime.gameObject.SetActive(true);
                     TimeRecord = 0;
                 }
                 else
@@ -142,8 +153,10 @@ public class GameProcessManager : MonoBehaviour
                     
                     projector.material.SetColor( "_Color",rightColor);
                     fhzMat.SetColor("_Emission", rightColor);
-
+                    occupyTime.GetComponent<Shadow>().effectColor = rightColor;
                     
+                    occupyTime.gameObject.SetActive(true);
+
                 }
                 else
                 {
@@ -157,11 +170,24 @@ public class GameProcessManager : MonoBehaviour
             projector.material.SetColor("_Color", notOccupiedColor);
             fhzMat.SetColor("_Emission", notOccupiedColor2);
             TimeRecord = 0;
+            occupyTime.gameObject.SetActive(false);
         }
         Debug.Log("被占领了！" + superiority);
+        occupyTime.text = ((int)(TimeRecord / 60)).ToString()+":"+((int)TimeRecord%60).ToString();
+        totalTime.text = ((int)(gameTimeAll / 60)).ToString() + ":" + ((int)gameTimeAll % 60).ToString();
         if (TimeRecord > winTime)
         {
             Debug.Log("胜利了！" + superiority);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            if (playerManager.myplayer[playerManager.controlId].GetComponent<PlayerSide>().side == superiority)
+            {
+                SceneManager.LoadScene("end");
+            }
+            else
+            {
+                SceneManager.LoadScene("end2");
+            }
         }
     }
 }

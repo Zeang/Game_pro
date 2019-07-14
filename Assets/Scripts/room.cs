@@ -8,7 +8,7 @@ public class room : MonoBehaviour
 {
     public void OnLoginButtonClick()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(8);
     }
 
 }
