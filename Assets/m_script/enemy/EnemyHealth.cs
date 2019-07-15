@@ -12,7 +12,9 @@ public class EnemyHealth : MonoBehaviour
     PlayerHealth playerHealth;
     // public Slider sl;
     GameObject player;
-
+    GameObject emptyplayer;
+    playerManagement pManagement;
+    int myscore=0;
 
     Animator anim;
     AudioSource enemyAudio;
@@ -30,7 +32,10 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = startingHealth;
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
+        emptyplayer = GameObject.FindGameObjectWithTag("playerManage");
+        pManagement = emptyplayer.GetComponent<playerManagement>();
         per = 1;
+        
        // sl.value = 1;
     }
 
@@ -50,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage (int amount, Vector3 hitPoint)
+    public void TakeDamage (int amount, Vector3 hitPoint,int playerID)
     {
         Debug.Log(currentHealth);
         if(isDead)
@@ -66,19 +71,22 @@ public class EnemyHealth : MonoBehaviour
 
         if(currentHealth <= 0)
         {
-            Death ();
+            Death (playerID);
             //StartSinking();
         }
     }
 
 
-    void Death ()
+    void Death (int playerID)
     {
         isDead = true;
 
         capsuleCollider.isTrigger = true;
 
         anim.SetTrigger ("Dead");
+        GameObject shootingPlayer = pManagement.myplayer[playerID];
+        PlayerMovement shootingmove = shootingPlayer.GetComponent<PlayerMovement>();
+        myscore=shootingmove.myScore += scoreValue;
 
         //enemyAudio.clip = deathClip;
         //enemyAudio.Play ();
@@ -90,7 +98,8 @@ public class EnemyHealth : MonoBehaviour
         //GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;//禁用一个组件
         //GetComponent <Rigidbody> ().isKinematic = true;//不受物理力控制
         //isSinking = true;
-        ScoreManager.score += scoreValue;
+        // ScoreManager.score += scoreValue;
+        ScoreManager.score = myscore;
         Destroy (gameObject, 2f);
     }
 }

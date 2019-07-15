@@ -7,23 +7,31 @@ public class EnemyMovement : MonoBehaviour
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     UnityEngine.AI.NavMeshAgent nav;
+    GameObject emptyplayer;
+    playerManagement pManagement;
+    int playerID;
+    GameObject[] myplayer;
 
 
-    void Awake ()
+    void Start ()
     {
         player = GameObject.FindGameObjectWithTag ("Player").transform;
         playerHealth = player.GetComponent <PlayerHealth> ();
         enemyHealth = GetComponent <EnemyHealth> ();
         Debug.Log("fef"+player);
         nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
+        emptyplayer = GameObject.FindGameObjectWithTag("playerManage");
+        pManagement = emptyplayer.GetComponent<playerManagement>();
+        myplayer = pManagement.myplayer;
     }
 
 
     void Update ()
     {
+        int controlID = pManagement.controlId;
         if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
-            nav.SetDestination (player.position);//保持追踪敌人
+            nav.SetDestination (myplayer[controlID].transform.position);//保持追踪敌人
         }
         else
         {

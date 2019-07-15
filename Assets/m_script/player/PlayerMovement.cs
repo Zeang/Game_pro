@@ -17,13 +17,16 @@ public class PlayerMovement : MonoBehaviour
     public GameObject gunhead;
     public GameObject cm;
     public GameObject akai;
+    public GameObject gunHead;
+    PlayerShooting shot;
+    public int myScore=0;
     public changeMesh changerole;
     void Awake()//无论脚本是否可运行都会执行，适合用于设置初始值
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
         floorMask = LayerMask.GetMask("Floor");//传入我们要获取的layer对应的字符串
         anim = GetComponent<Animator>();
-    
+        shot = gunhead.GetComponent<PlayerShooting>();
         playerRigidbody = GetComponent<Rigidbody>();
         ph = GetComponent<PlayerHealth>();
         changerole = akai.GetComponent<changeMesh>();
@@ -34,9 +37,33 @@ public class PlayerMovement : MonoBehaviour
        
 
     }
-  public int getID()
+    void OnTriggerEnter(Collider other)
     {
-        return 1;
+
+        if (other.tag == "addHP")
+        {
+            other.gameObject.SetActive(false);
+            if (ph.startingHealth - ph.currentHealth > 30)
+            {
+                ph.currentHealth = ph.currentHealth + 30;
+            }
+            else
+            {
+                ph.currentHealth = ph.startingHealth;
+            }
+            
+        }
+       
+        else if (other.tag == "addDamage"&&shot.addDamage==false)
+        {
+            other.gameObject.SetActive(false);
+            shot.damagePerShot = 50;
+            shot.addDamage=true;
+        }
+    }
+    public int getID()
+    {
+        return playerID;
     }
     void FixedUpdate()//固定时间间隔被调用，跟物理引擎一起被更新
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class rotater : MonoBehaviour {
-    float shakeAmount = 0.1f;
+    float shakeAmount = 0.3f;
     Vector3 first_pos;
     int count = 0;
 	// Use this for initialization

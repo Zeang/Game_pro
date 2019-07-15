@@ -39,7 +39,8 @@ public class PlayerHealth : MonoBehaviour
 
     void Update ()
     {
-        if(damaged)
+        healthSlider.value = currentHealth;
+        if (damaged)
         {
             damageImage.color = flashColour;
             Debug.Log("flash");

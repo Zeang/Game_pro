@@ -13,6 +13,7 @@ public class PlayerShooting : MonoBehaviour
 
 
         float timer;                                    // A timer to determine when to fire.
+        float addDtimer;
         Ray shootRay = new Ray();                       // A ray from the gun end forwards.
         RaycastHit shootHit;                            // A raycast hit to get information about what was hit.
         int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
@@ -22,40 +23,62 @@ public class PlayerShooting : MonoBehaviour
         Light gunLight;                                 // Reference to the light component.
 		public Light faceLight;								// Duh
         float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
-        GameObject player;
+        public GameObject player;
         PlayerHealth enemyHealth;
         public Transform playertrans;
-
-        void Awake ()
+        PlayerMovement playermove;
+        public bool addDamage = false;
+        
+        int playerID;
+        void Start ()
         {
             // Create a layer mask for the Shootable layer.
             shootableMask = LayerMask.GetMask ("Shootable");
-            player = GameObject.FindGameObjectWithTag("Player");
+        
             enemyHealth = player.GetComponent<PlayerHealth>();
-            
+            playermove = player.GetComponent<PlayerMovement>();
+            playerID = playermove.playerID;
             // Set up the references.
             gunParticles = GetComponent<ParticleSystem> ();
             gunLine = GetComponent <LineRenderer> ();
             gunAudio = GetComponent<AudioSource> ();
             gunLight = GetComponent<Light> ();
 			faceLight = GetComponentInChildren<Light> ();
+        
         }
 
-      
+       
         void Update ()
         {
+
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
+            if (addDamage == true)
+            {
+                addDtimer += Time.deltaTime;
+
+                if (timer > 15)
+                {
+                    addDamage = false;
+                    damagePerShot = 10;
+                
+
+                }
+
+            }
+ 
+            Debug.Log(damagePerShot);
 
 #if !MOBILE_INPUT
-            // If the Fire1 button is being press and it's time to fire...
-			if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+        // If the Fire1 button is being press and it's time to fire...
+        if (Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
             {
 
                 // ... shoot the gun.
                 Debug.Log("打中僵尸");
                 Shoot ();
             }
+            
 #else
             // If there is input on the shoot direction stick and it's time to fire...
             if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= timeBetweenBullets)
@@ -122,7 +145,7 @@ public class PlayerShooting : MonoBehaviour
                 {
                 Debug.Log("打中敌人");
                     // ... the enemy should take damage.
-                    g.GetComponent<EnemyHealth>().TakeDamage (damagePerShot, shootHit.point);
+                    g.GetComponent<EnemyHealth>().TakeDamage (damagePerShot, shootHit.point,playerID);
                     Debug.Log(g.GetComponent<EnemyHealth>());
                     Quaternion fireRotation = Quaternion.Euler(transform.forward);
                     GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;

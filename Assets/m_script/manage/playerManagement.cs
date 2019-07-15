@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class playerManagement : MonoBehaviour
 {
-
-   
     public GameObject player;
     public Vector3 []a; //实例化预制体的position，可自定义
     public Quaternion []b ;//实例化预制体的rotation，可自定义
@@ -18,8 +16,8 @@ public class playerManagement : MonoBehaviour
     float curTime=0f;
     EnemyAttack eattack;
     public int controlId;
-    public Vector3 ra = new Vector3(0, 0, 0); //实例化预制体的position，可自定义
-    public Quaternion rb = new Quaternion(0, 0, 0, 0);//实例化预制体的rotation，可自定义
+    //public Vector3[] ra; //实例化预制体的position，可自定义
+    //public Quaternion []rb ;//实例化预制体的rotation，可自定义
     bool isdead=false;
     public Mesh characterMesh;
     PlayerShooting ps;
@@ -101,7 +99,7 @@ public class playerManagement : MonoBehaviour
             Debug.Log(curTime);
             
             if (curTime>rebirthTime)
-                rebirth(ra, rb);
+                rebirth(a[controlId], b[controlId]);
                 
         }
     }
