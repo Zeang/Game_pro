@@ -42,6 +42,7 @@ public class playerManagement : MonoBehaviour
             eattack.player = myplayer[controlId];
             pm = myplayer[i].GetComponent<PlayerMovement>();
             pm.playerID = i;
+            pm.startpoint = a[i];
             ps = pm.gunhead.GetComponent<PlayerShooting>();
             vc = pm.cm.GetComponent<vThirdPersonCamera>();
             Debug.Log(i);

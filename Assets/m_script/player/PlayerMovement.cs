@@ -21,6 +21,18 @@ public class PlayerMovement : MonoBehaviour
     PlayerShooting shot;
     public int myScore=0;
     public changeMesh changerole;
+    int run = 0;
+    int jump = 0;
+    int count = 0;
+    public Vector3 startpoint;
+    public float jumpSpeed=5f;
+
+    //rotation Sensitivity
+    private float lookSensitivity = 5.0f;
+    //camera
+    [SerializeField]
+    private Camera Cam;
+  
     void Awake()//无论脚本是否可运行都会执行，适合用于设置初始值
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
@@ -34,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         Mesh newMesh =maoxianzhe.fbx.GetComponent<Mesh>();
         SkinnedMeshRenderer meshrender = GetComponent<SkinnedMeshRenderer>();
         meshrender.sharedMesh=newMesh;*/
-       
+     
 
     }
     void OnTriggerEnter(Collider other)
@@ -65,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return playerID;
     }
-    void FixedUpdate()//固定时间间隔被调用，跟物理引擎一起被更新
+    void Update()//固定时间间隔被调用，跟物理引擎一起被更新
     {
         float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
         float v = Input.GetAxisRaw("Vertical");//从纵轴获取输入
@@ -73,7 +85,41 @@ public class PlayerMovement : MonoBehaviour
         //Turning();//要删
         //transform.forward = cameratranform.forward;
         animating(h, v);
+        positionRest();
+        //Rotate
+        float _yRot = Input.GetAxis("Mouse X");
+
+        Vector3 _rotation = new Vector3(0f, _yRot, 0f) * lookSensitivity;
+
+        //Apply Rotation
+        PerformRotate(_rotation);
+        //Calculate camera rotation as a 3D vector (turning around)
+        float _xRot = Input.GetAxisRaw("Mouse Y");
+
+        Vector3 _cameraRotation = new Vector3(_xRot, 0f, 0f) * lookSensitivity;
+
+        PerformCamRotate(_cameraRotation);
+
     }
+
+    private void PerformRotate(Vector3 _rotation)
+    {
+        transform.rotation = transform.rotation * Quaternion.Euler(_rotation);
+    }
+
+    private void PerformCamRotate(Vector3 _rotation)
+    {
+        if(null != Cam)
+        {
+            Cam.transform.Rotate(-_rotation);
+        }
+        Vector3 offset = new Vector3(0.0f, 2.0f, -7.0f);
+        Vector3 offset_Y = new Vector3(0.0f, 4.0f, 0.0f);
+        Cam.transform.position = transform.position + Vector3.Project(offset, transform.forward.normalized) + offset_Y;
+
+        
+    }
+    
     public void Move(float h,float v)
     {
         //movement.Set(h, 0f, v);//x,y,z不需要y方向
@@ -102,30 +148,115 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-    void animating(float h,float v)//玩家的状态取决于输入
+    void positionRest()
+    {
+        if (Input.GetKeyUp(KeyCode.T))
+        {
+           transform.position = startpoint;
+
+        }
+    }
+    void animating(float h, float v)//玩家的状态取决于输入
     {
         //bool walking=h!=0f || v != 0f;
         //anim.SetBool("IsWalking",walking);
-        if (h > 0 && v == 0)
+        
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            anim.SetInteger("state", 3);
+
+            count++;
+            Debug.Log("ccc" + count);
+            if (count % 2 == 1)
+            {
+                run = 1;
+                speed = 5;
+            }
+            else if (count % 2 == 0)
+            {
+                run = 0;
+                speed = 2;
+            }
+            
+
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("jump");
+            
+            playerRigidbody.velocity += new Vector3(0, 20, 0);
+            playerRigidbody.AddForce(Vector3.up * jumpSpeed);
+            jump = 1;
+            
+            
+        }
+        
+
+            if (h > 0 && v == 0)
+        {
+            if(run==0)
+                anim.SetInteger("state", 3);
+            if (run == 1)
+                anim.SetInteger("state", 5);
+            if (jump == 1)
+
+            {
+                anim.SetTrigger("jump");
+                jump = 0;
+            }
+             
+           
         }
         else if (h < 0 && v == 0)
         {
-            anim.SetInteger("state", 2);
+            if (run == 0 )
+                anim.SetInteger("state", 2);
+            if (run == 1)
+                anim.SetInteger("state", 5);
+            if (jump == 1)
+            {
+                anim.SetTrigger("jump");
+                jump = 0;
+            }
+
         }
         else if (h == 0 && v > 0)
         {
-            anim.SetInteger("state", 1);
+            if (run == 0 && jump == 0)
+                anim.SetInteger("state", 1);
+            if (run == 1)
+                anim.SetInteger("state", 5);
+            if (jump == 1)
+            {
+                anim.SetTrigger("jump");
+                jump = 0;
+            }
+
         }
         else if (h == 0 && v < 0)
         {
-            anim.SetInteger("state", 4);
+            if (run == 0 && jump == 0)
+                anim.SetInteger("state", 4);
+            if (run == 1)
+                anim.SetInteger("state", 5);
+            if (jump == 1)
+            {
+                anim.SetTrigger("jump");
+                jump = 0;
+            }
+
         }
-        else if(h==0&&v==0&&ph.currentHealth>0)
+        else if (h == 0 && v == 0 && ph.currentHealth > 0)
         {
-            anim.SetInteger("state", 0);
+           
+           anim.SetInteger("state", 0);
+            
+            if (jump == 1)
+            {
+                anim.SetTrigger("jump");
+                jump = 0;
+            }
         }
+        
 
     }
 
