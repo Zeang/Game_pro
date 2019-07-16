@@ -53,12 +53,12 @@ public class playerManagement : MonoBehaviour
                 Debug.Log("vc" + vc.targ);
                 pm.cm.SetActive(false);
                 ph.enabled = false;
-                pm.enabled = false;
+                //pm.enabled = false;
                 ps.enabled = false;
 
                 myplayer[i].GetComponent<Invector.CharacterController.vThirdPersonInput>().enabled = false;
                 myplayer[i].GetComponent<Invector.CharacterController.vThirdPersonController>().enabled = false;
-
+                
 
             }
             else
@@ -71,8 +71,8 @@ public class playerManagement : MonoBehaviour
                 ph.healthSlider = hSlider;
                 ph.damageImage = dImage;
                 phc = ph;
-               
-                
+                myplayer[i].AddComponent<MoveControl>();
+
                 //
 
             }
