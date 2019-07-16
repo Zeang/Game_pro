@@ -25,13 +25,15 @@ public class AIMoveControl : MonoBehaviour
 
     //AIMove
     private AIMoveEncounter AIChase;
+    private AIShooting AIShoot;
 
     // Start is called before the first frame update
     void Start()
     {
         //AIChase
         AIChase = GetComponent<AIMoveEncounter>();
-
+        //AI Shooting
+        AIShoot = GetComponent<AIShooting>();
         //init state is usual
         GetComponent<AIMoveUsual>().enabled = true;
         GetComponent<AIMoveAlert>().enabled = false;
@@ -98,8 +100,8 @@ public class AIMoveControl : MonoBehaviour
 
         //遍历敌人
         GameObject[] PlayerEnemy = GameObject.FindGameObjectsWithTag("Player" + EnemyCamp);
-        GameObject[] AIEnemy = GameObject.FindGameObjectsWithTag("AI" + EnemyCamp);
-
+        //GameObject[] AIEnemy = GameObject.FindGameObjectsWithTag("AI" + EnemyCamp);
+        
         foreach (GameObject EnemyP in PlayerEnemy)
         {
             if (Is_SuitView(EnemyP) == true)
@@ -107,23 +109,24 @@ public class AIMoveControl : MonoBehaviour
                 //确定敌人
                 state = (int)State.Encounter;
                 AIChase.SetEnemy(EnemyP);
+                AIShoot.SetEnemy(EnemyP);
                 StateChanged = true;
                 return;
             }
         }
 
-        foreach (GameObject EnemyA in AIEnemy)
-        {
-            if (Is_SuitView(EnemyA) == true)
-            {
-                //确定敌人
-                state = (int)State.Encounter;
-                AIChase.SetEnemy(EnemyA);
-                StateChanged = true;
-                return;
+        //foreach (GameObject EnemyA in AIEnemy)
+        //{
+        //    if (Is_SuitView(EnemyA) == true)
+        //    {
+        //        //确定敌人
+        //        state = (int)State.Encounter;
+        //        AIChase.SetEnemy(EnemyA);
+        //        StateChanged = true;
+        //        return;
 
-            }
-        }
+        //    }
+        //}
 
     }
 
@@ -136,7 +139,7 @@ public class AIMoveControl : MonoBehaviour
 
         foreach (GameObject Ally in AIAlly)
         {
-            if (Ally.transform == transform)
+            if (Ally.transform.position == transform.position)
                 continue;
             if(Is_SuitView(Ally) == true)
             {

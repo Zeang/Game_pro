@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIShooting : MonoBehaviour
 {
     [SerializeField]
-    private Rigidbody enemy;
+    private GameObject enemy;
     //AI射击的精确性
     private float ShootAccurary;
     private float ShootingDuration;
@@ -53,7 +53,13 @@ public class AIShooting : MonoBehaviour
     private void Shooting()
     {
         Ray ray = new Ray(transform.position, hit.transform.position - transform.position);
+        Debug.Log("Shooting");
         Debug.DrawLine(ray.origin, hit.point, Color.white);
         
+    }
+
+    public void SetEnemy(GameObject obj)
+    {
+        enemy = obj;
     }
 }

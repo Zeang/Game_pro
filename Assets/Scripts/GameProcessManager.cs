@@ -172,7 +172,7 @@ public class GameProcessManager : MonoBehaviour
             TimeRecord = 0;
             occupyTime.gameObject.SetActive(false);
         }
-        Debug.Log("被占领了！" + superiority);
+        //Debug.Log("被占领了！" + superiority);
         occupyTime.text = ((int)(TimeRecord / 60)).ToString()+":"+((int)TimeRecord%60).ToString();
         totalTime.text = ((int)(gameTimeAll / 60)).ToString() + ":" + ((int)gameTimeAll % 60).ToString();
         if (TimeRecord > winTime)
