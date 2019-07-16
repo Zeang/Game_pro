@@ -71,10 +71,10 @@ namespace network
 
         //set client
         [DllImport("zztnetwork.dll", CallingConvention = CallingConvention.StdCall, EntryPoint = "SetClient")]
-        public static extern void SetClientRaw(int is_client);
-        public void SetClient(bool client)
+        public static extern void SetClientRaw(int is_client, int server_ip);
+        public void SetClient(bool client, int server_ip = 0)
         {
-            SetClientRaw(client ? 1 : 0);
+            SetClientRaw(client ? 1 : 0, server_ip);
         }
 
 
