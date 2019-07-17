@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 
 public class PlayerShooting : MonoBehaviour
-    {
+{
         public int damagePerShot = 20;                  // The damage inflicted by each bullet.
         public float timeBetweenBullets = 0.15f;        // The time between each shot.
         public float range = 100f;                      // The distance the gun can fire.
@@ -28,7 +28,9 @@ public class PlayerShooting : MonoBehaviour
         public Transform playertrans;
         PlayerMovement playermove;
         public bool addDamage = false;
-        
+        [SerializeField]
+        private Camera Cam;
+
         int playerID;
         void Start ()
         {
@@ -67,7 +69,7 @@ public class PlayerShooting : MonoBehaviour
 
             }
  
-            Debug.Log(damagePerShot);
+            //Debug.Log(damagePerShot);
 
 #if !MOBILE_INPUT
         // If the Fire1 button is being press and it's time to fire...
@@ -129,7 +131,7 @@ public class PlayerShooting : MonoBehaviour
 
             // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
             shootRay.origin = transform.position;
-            shootRay.direction = -transform.forward ;
+            shootRay.direction = Cam.transform.forward ;
 
             // Perform the raycast against gameobjects on the shootable layer and if it hits something...
             if(Physics.Raycast (shootRay, out shootHit, range, shootableMask))
@@ -139,6 +141,7 @@ public class PlayerShooting : MonoBehaviour
             Debug.Log("打中可射击层");
 
             GameObject g = shootHit.collider.gameObject;
+            Debug.Log("打中的物体" + g);
                 
                 // If the EnemyHealth component exist...
                 if (g.CompareTag("enemy"))//是有血量的敌人
@@ -147,10 +150,18 @@ public class PlayerShooting : MonoBehaviour
                     // ... the enemy should take damage.
                     g.GetComponent<EnemyHealth>().TakeDamage (damagePerShot, shootHit.point,playerID);
                     Debug.Log(g.GetComponent<EnemyHealth>());
-                    Quaternion fireRotation = Quaternion.Euler(transform.forward);
+                    Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
                     GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
                     Instantiate(gb,shootHit.point, fireRotation);
                 }
+            if (g.CompareTag("Player"))
+            {
+                Debug.Log("打中对手");
+                g.GetComponent<PlayerHealth>().TakeDamage(20);
+                Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
+                GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                Instantiate(gb, shootHit.point, fireRotation);
+            }
 
                 // Set the second position of the line renderer to the point the raycast hit.
                 gunLine.SetPosition (1, shootHit.point);

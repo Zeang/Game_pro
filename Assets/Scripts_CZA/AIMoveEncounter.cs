@@ -120,7 +120,7 @@ public class AIMoveEncounter : MonoBehaviour
     {
         if(true == JumpState)
         {
-            rb.velocity += new Vector3(0, 5, 0);
+            rb.velocity += new Vector3(0, 3, 0);
             JumpState = false;
         }
     }

@@ -5,13 +5,14 @@ using UnityEngine;
 public class AIShooting : MonoBehaviour
 {
     [SerializeField]
-    private Rigidbody enemy;
+    private GameObject enemy;
     //AI射击的精确性
     private float ShootAccurary;
     private float ShootingDuration;
     private bool isAim = false;
     private RaycastHit pastHit;
     private RaycastHit hit;
+    private GameObject g;
 
     private void Start()
     {
@@ -28,10 +29,15 @@ public class AIShooting : MonoBehaviour
     //判断是否瞄准
     private void PerformAim()
     {
+        Debug.Log("judge ami");
         isAim = Physics.Raycast(transform.position, transform.forward, out hit);
-        if(true == isAim && hit.collider.tag != "PlayerRed")
+        if (hit.collider.gameObject)
         {
-            isAim = false;
+            g = hit.collider.gameObject;
+        }
+        if (isAim==false && g.CompareTag("Player"))
+        {
+            isAim = true;
         }
     }
     
@@ -45,6 +51,8 @@ public class AIShooting : MonoBehaviour
             if(isAim)
             {
                 Shooting();
+                
+
             }
         }
     }
@@ -53,7 +61,15 @@ public class AIShooting : MonoBehaviour
     private void Shooting()
     {
         Ray ray = new Ray(transform.position, hit.transform.position - transform.position);
+        Debug.Log("Shooting");
         Debug.DrawLine(ray.origin, hit.point, Color.white);
-        
+        if(g)
+            g.GetComponent<PlayerHealth>().TakeDamage(20);
+
+    }
+
+    public void SetEnemy(GameObject obj)
+    {
+        enemy = obj;
     }
 }

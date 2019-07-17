@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     //camera
     [SerializeField]
     private Camera Cam;
-  
+    
     void Awake()//无论脚本是否可运行都会执行，适合用于设置初始值
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
@@ -42,11 +42,14 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         ph = GetComponent<PlayerHealth>();
         changerole = akai.GetComponent<changeMesh>();
-       /* Character maoxianzhe = (Character)AssetDatabase.LoadAssetAtPath<Character>("Assets/CharacterAsset/Shengtu1.asset");
-        Mesh newMesh =maoxianzhe.fbx.GetComponent<Mesh>();
-        SkinnedMeshRenderer meshrender = GetComponent<SkinnedMeshRenderer>();
-        meshrender.sharedMesh=newMesh;*/
-     
+        
+        /* Character maoxianzhe = (Character)AssetDatabase.LoadAssetAtPath<Character>("Assets/CharacterAsset/Shengtu1.asset");
+         Mesh newMesh =maoxianzhe.fbx.GetComponent<Mesh>();
+         SkinnedMeshRenderer meshrender = GetComponent<SkinnedMeshRenderer>();
+         meshrender.sharedMesh=newMesh;*/
+        Cursor.visible = false;//隐藏鼠标
+        Cursor.lockState = CursorLockMode.Locked;//把鼠标锁定到屏幕中间
+
 
     }
     void OnTriggerEnter(Collider other)
@@ -105,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
     private void PerformRotate(Vector3 _rotation)
     {
         transform.rotation = transform.rotation * Quaternion.Euler(_rotation);
+        
     }
 
     private void PerformCamRotate(Vector3 _rotation)
@@ -113,11 +117,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Cam.transform.Rotate(-_rotation);
         }
-        Vector3 offset = new Vector3(0.0f, 2.0f, -7.0f);
-        Vector3 offset_Y = new Vector3(0.0f, 4.0f, 0.0f);
-        Cam.transform.position = transform.position + Vector3.Project(offset, transform.forward.normalized) + offset_Y;
+        Vector3 offset_Y = new Vector3(0.0f, 3.0f, 0.0f);
+        Cam.transform.position = akai.transform.position - 3.0f * Cam.transform.forward.normalized + offset_Y;
 
-        
     }
     
     public void Move(float h,float v)
@@ -135,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Turning()//不需要参数，因为角色的朝向是基于鼠标的位置，而不是我们保存的输入
     {
-        Debug.Log(Input.mousePosition);
+        //Debug.Log(Input.mousePosition);
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);//从camera发射一条射线打在鼠标位置上(如果这行报错，可能是camera没有设置tag为main
         RaycastHit floorHit;
         if(Physics.Raycast(camRay,out floorHit, camRayLength, floorMask))//如果击中某物

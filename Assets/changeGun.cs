@@ -8,13 +8,16 @@ public class changeGun : MonoBehaviour
     private MeshFilter mf;
     private MeshRenderer mr;
     public Material []mt;
-    int count=0;
+    [SerializeField]
+    private Camera Cam;
+
+
+    int count =0;
     // Start is called before the first frame update
     void Start()
     {
         mf = this.GetComponent<MeshFilter>();
         mr = this.GetComponent<MeshRenderer>();
-
     }
 
     public int getWeapon()
@@ -50,6 +53,6 @@ public class changeGun : MonoBehaviour
             mf.mesh = otherMesh[2];
             mr.material = mt[2];
         }
-
+        transform.rotation = Quaternion.LookRotation(Cam.transform.forward);
     }
 }

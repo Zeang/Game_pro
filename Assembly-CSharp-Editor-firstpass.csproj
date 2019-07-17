@@ -297,6 +297,12 @@
  <Reference Include="UnityEditor.Graphs">
  <HintPath>F:/unity/u2018.3/unity201803/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
+<<<<<<< HEAD
+=======
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>F:/unity/u2018.3/unity201803/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+>>>>>>> yeyaohuan
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>F:/unity/u2018.3/unity201803/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
