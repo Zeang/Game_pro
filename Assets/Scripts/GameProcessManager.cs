@@ -146,6 +146,7 @@ public class GameProcessManager : MonoBehaviour
             {
                 item.AddComponent<PlayerSide>();
                 item.GetComponent<PlayerSide>().side = 0;
+                item.GetComponent<PlayerSide>().color1 = leftColor;
             }
         }
         rightPlayer = new GameObject[] { playerManager.myplayer[3], playerManager.myplayer[4], playerManager.myplayer[5] };
@@ -155,6 +156,7 @@ public class GameProcessManager : MonoBehaviour
             {
                 item.AddComponent<PlayerSide>();
                 item.GetComponent<PlayerSide>().side = 1;
+                item.GetComponent<PlayerSide>().color2 = rightColor;
             }
         }
 
