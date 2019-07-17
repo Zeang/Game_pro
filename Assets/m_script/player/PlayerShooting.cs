@@ -141,6 +141,7 @@ public class PlayerShooting : MonoBehaviour
             Debug.Log("打中可射击层");
 
             GameObject g = shootHit.collider.gameObject;
+            Debug.Log("打中的物体" + g);
                 
                 // If the EnemyHealth component exist...
                 if (g.CompareTag("enemy"))//是有血量的敌人
@@ -153,6 +154,14 @@ public class PlayerShooting : MonoBehaviour
                     GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
                     Instantiate(gb,shootHit.point, fireRotation);
                 }
+            if (g.CompareTag("Player"))
+            {
+                Debug.Log("打中对手");
+                g.GetComponent<PlayerHealth>().TakeDamage(20);
+                Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
+                GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                Instantiate(gb, shootHit.point, fireRotation);
+            }
 
                 // Set the second position of the line renderer to the point the raycast hit.
                 gunLine.SetPosition (1, shootHit.point);
