@@ -28,13 +28,16 @@ public class GameProcessManager : MonoBehaviour
     private fhz fhz = null;
     private Projector projector = null;
 
-    //在占领区域的两方
+    //在占领区域的两方人数
     private int OccupiedLeft = 0;
     private int OccupiedRight = 0;
+    //当前的优势方 -1为平，0为左，1为右
     private int superiority = -1;
     private float TimeRecord = 0;
+    private int controlID = 1;//本机玩家编号
 
     private float gameTimeAll = 0;
+    private int controlSide;//本机控制角色对应的一方
 
     // Start is called before the first frame update
     void Start()
@@ -44,15 +47,27 @@ public class GameProcessManager : MonoBehaviour
         {
             //初始化
             playerManager = birthControl.GetComponent<playerManagement>();
+
             playerManager.a = new Vector3[6] {leftBirth.transform.position+new Vector3(1,0,-0.5f), leftBirth.transform.position,leftBirth.transform.position+new Vector3(-1,0,-0.5f),
             rightBirth.transform.position+new Vector3(1,0,-0.5f),rightBirth.transform.position,rightBirth.transform.position+new Vector3(-1,0,-0.5f)};
+
             playerManager.b = new Quaternion[6] { leftBirth.transform.rotation, leftBirth.transform.rotation, leftBirth.transform.rotation,
             rightBirth.transform.rotation, rightBirth.transform.rotation , rightBirth.transform.rotation };
 
             //playerManager.ra = playerManager.a[0];
             //playerManager.rb 
             playerManager.characterID = new int[6] { 2, 0, 1, 2, 0, 1 };//选角色在这里，012三种角色
-            playerManager.controlId = 1;//本机玩家编号
+
+            playerManager.controlId = controlID;//本机玩家编号
+
+            if (controlID < 3)
+            {
+                controlSide = 0;
+            }
+            else
+            {
+                controlSide = 1;
+            }
 
             playerManager.enabled = true;
         }
@@ -76,6 +91,39 @@ public class GameProcessManager : MonoBehaviour
         if (gameTimeAll > EndTime)
         {
             Debug.Log("游戏结束");
+            int leftScore = 0;
+            foreach(GameObject player in leftPlayer)
+            {
+                leftScore += player.GetComponent<PlayerMovement>().myScore;
+            }
+
+            int rightScore = 0;
+            foreach (GameObject player in rightPlayer)
+            {
+                rightScore += player.GetComponent<PlayerMovement>().myScore;
+            }
+            //if(playerManager.myplayer[playerManager.controlId].)
+            int winSide;
+            if (leftScore > rightScore)
+            {
+                winSide = 0;
+            }
+            else if(leftScore < rightScore)
+            {
+                winSide = 1;
+            }
+            else
+            {
+                winSide = controlSide;
+            }
+            if (winSide == controlSide)
+            {
+                SceneManager.LoadScene("end");
+            }
+            else
+            {
+                SceneManager.LoadScene("end2");
+            }
         }
         //if(playerNow==0&& playerManager.myplayer.Length == 6)
         //{
@@ -98,6 +146,7 @@ public class GameProcessManager : MonoBehaviour
             {
                 item.AddComponent<PlayerSide>();
                 item.GetComponent<PlayerSide>().side = 0;
+                item.GetComponent<PlayerSide>().color1 = leftColor;
             }
         }
         rightPlayer = new GameObject[] { playerManager.myplayer[3], playerManager.myplayer[4], playerManager.myplayer[5] };
@@ -107,6 +156,7 @@ public class GameProcessManager : MonoBehaviour
             {
                 item.AddComponent<PlayerSide>();
                 item.GetComponent<PlayerSide>().side = 1;
+                item.GetComponent<PlayerSide>().color2 = rightColor;
             }
         }
 

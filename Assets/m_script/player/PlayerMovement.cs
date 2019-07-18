@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return playerID;
     }
+<<<<<<< HEAD
     void Update()//固定时间间隔被调用，跟物理引擎一起被更新
     {
         float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
@@ -122,8 +123,20 @@ public class PlayerMovement : MonoBehaviour
 
     }
     
+=======
+    //void FixedUpdate()//固定时间间隔被调用，跟物理引擎一起被更新
+    //{
+    //    float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
+    //    float v = Input.GetAxisRaw("Vertical");//从纵轴获取输入
+    //    Move(h*5, v*5);
+    //    //Turning();//要删
+    //    //transform.forward = cameratranform.forward;
+    //    animating(h, v);
+    //}
+>>>>>>> c407bc15a5b34f7e1c572ff5e54975e7e6a37988
     public void Move(float h,float v)
     {
+        animating(h, v);
         //movement.Set(h, 0f, v);//x,y,z不需要y方向
         //movement = movement.normalized * speed * Time.deltaTime;//为了使每个方向跑的一样快，为了使每秒移动6个单元
         // playerRigidbody.MovePosition(transform.position+movement);//会将刚体移动到世界空间的某个坐标，所以需要把它与角色当前所在的坐标关连
