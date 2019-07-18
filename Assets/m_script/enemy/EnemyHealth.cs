@@ -30,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
         hitParticles = GetComponentInChildren <ParticleSystem> ();//在子对象中寻找组件
         capsuleCollider = GetComponent <CapsuleCollider> ();
         currentHealth = startingHealth;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("PlayerRed");
         playerHealth = player.GetComponent<PlayerHealth>();
         emptyplayer = GameObject.FindGameObjectWithTag("playerManage");
         pManagement = emptyplayer.GetComponent<playerManagement>();

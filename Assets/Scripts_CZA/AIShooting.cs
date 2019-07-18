@@ -9,10 +9,11 @@ public class AIShooting : MonoBehaviour
     //AI射击的精确性
     private float ShootAccurary;
     private float ShootingDuration;
+
     private bool isAim = false;
     private RaycastHit pastHit;
     private RaycastHit hit;
-    private GameObject g;
+    private GameObject goal;
 
     private void Start()
     {
@@ -29,16 +30,19 @@ public class AIShooting : MonoBehaviour
     //判断是否瞄准
     private void PerformAim()
     {
-        Debug.Log("judge ami");
         isAim = Physics.Raycast(transform.position, transform.forward, out hit);
-        if (hit.collider.gameObject)
+        if (isAim && hit.collider.gameObject)
         {
-            g = hit.collider.gameObject;
+            goal = hit.collider.gameObject;
+            if(goal.tag != "PlayerRed")
+            {
+                isAim = false;
+            }
         }
-        if (isAim==false && g.CompareTag("Player"))
-        {
-            isAim = true;
-        }
+        //if (isAim==false && g.CompareTag("PlayerRed"))
+        //{
+        //    isAim = true;
+        //}
     }
     
     //是否执行射击
@@ -51,8 +55,6 @@ public class AIShooting : MonoBehaviour
             if(isAim)
             {
                 Shooting();
-                
-
             }
         }
     }
@@ -60,11 +62,12 @@ public class AIShooting : MonoBehaviour
     //射击
     private void Shooting()
     {
+        
         Ray ray = new Ray(transform.position, hit.transform.position - transform.position);
         Debug.Log("Shooting");
         Debug.DrawLine(ray.origin, hit.point, Color.white);
-        if(g)
-            g.GetComponent<PlayerHealth>().TakeDamage(20);
+        if(goal)
+            goal.GetComponent<PlayerHealth>().TakeDamage(20);
 
     }
 

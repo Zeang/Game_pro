@@ -80,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return playerID;
     }
-<<<<<<< HEAD
     void Update()//固定时间间隔被调用，跟物理引擎一起被更新
     {
         float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
@@ -123,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
     
-=======
+
     //void FixedUpdate()//固定时间间隔被调用，跟物理引擎一起被更新
     //{
     //    float h = Input.GetAxisRaw("Horizontal");//从横轴获取输入,只有0，-1，1，可以认为是一个方向
@@ -133,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
     //    //transform.forward = cameratranform.forward;
     //    animating(h, v);
     //}
->>>>>>> c407bc15a5b34f7e1c572ff5e54975e7e6a37988
     public void Move(float h,float v)
     {
         animating(h, v);
