@@ -34,9 +34,19 @@ public class AIShooting : MonoBehaviour
         if (isAim && hit.collider.gameObject)
         {
             goal = hit.collider.gameObject;
-            if(goal.tag != "PlayerRed")
+            if (this.CompareTag("AIRed"))
             {
-                isAim = false;
+                if (goal.tag != "PlayerBlue")
+                {
+                    isAim = false;
+                }
+            }
+            else if (this.CompareTag("AIBlue"))
+            {
+                if(goal.tag != "PlayerBlue")
+                {
+                    isAim = false;
+                }
             }
         }
         //if (isAim==false && g.CompareTag("PlayerRed"))

@@ -142,25 +142,54 @@ public class PlayerShooting : MonoBehaviour
 
             GameObject g = shootHit.collider.gameObject;
             Debug.Log("打中的物体" + g);
-                
+            if (player.CompareTag("PlayerRed"))
+            {
                 // If the EnemyHealth component exist...
-                if (g.CompareTag("enemy"))//是有血量的敌人
+                if (g.CompareTag("AIBlue"))//是有血量的敌人
                 {
-                Debug.Log("打中敌人");
+                    Debug.Log("打中敌人");
                     // ... the enemy should take damage.
-                    g.GetComponent<EnemyHealth>().TakeDamage (damagePerShot, shootHit.point,playerID);
+                    g.GetComponent<EnemyHealth>().TakeDamage(damagePerShot, shootHit.point, playerID);
                     Debug.Log(g.GetComponent<EnemyHealth>());
                     Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
                     GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
-                    Instantiate(gb,shootHit.point, fireRotation);
+                    Instantiate(gb, shootHit.point, fireRotation);
                 }
-            if (g.CompareTag("Player"))
+                if (g.CompareTag("PlayerBlue"))
+                {
+                    Debug.Log("打中对手");
+                    g.GetComponent<PlayerHealth>().TakeDamage(20);
+                    Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
+                    Debug.Log("shoothit" + shootHit.point);
+                    Debug.Log("fireRotation" + fireRotation);
+                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    Instantiate(gb, shootHit.point, fireRotation);
+
+                }
+            }
+            else if (player.CompareTag("PlayerBlue"))
             {
-                Debug.Log("打中对手");
-                g.GetComponent<PlayerHealth>().TakeDamage(20);
-                Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
-                GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
-                Instantiate(gb, shootHit.point, fireRotation);
+                if (g.CompareTag("AIRed"))//是有血量的敌人
+                {
+                    Debug.Log("打中敌人");
+                    // ... the enemy should take damage.
+                    g.GetComponent<EnemyHealth>().TakeDamage(damagePerShot, shootHit.point, playerID);
+                    Debug.Log(g.GetComponent<EnemyHealth>());
+                    Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
+                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    Instantiate(gb, shootHit.point, fireRotation);
+                }
+                if (g.CompareTag("PlayerRed"))
+                {
+                    Debug.Log("打中对手");
+                    g.GetComponent<PlayerHealth>().TakeDamage(20);
+                    Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
+                    Debug.Log("shoothit" + shootHit.point);
+                    Debug.Log("fireRotation" + fireRotation);
+                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    Instantiate(gb, shootHit.point, fireRotation);
+
+                }
             }
 
                 // Set the second position of the line renderer to the point the raycast hit.

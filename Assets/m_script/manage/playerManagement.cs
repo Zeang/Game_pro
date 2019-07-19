@@ -22,6 +22,7 @@ public class playerManagement : MonoBehaviour
     public Mesh characterMesh;
     PlayerShooting ps;
     vThirdPersonCamera vc;
+    
     GameObject cm;
     PlayerHealth phc;
     PlayerMovement pmc;
@@ -45,16 +46,16 @@ public class playerManagement : MonoBehaviour
             pm.startpoint = a[i];
             ps = pm.gunhead.GetComponent<PlayerShooting>();
             vc = pm.cm.GetComponent<vThirdPersonCamera>();
-            Debug.Log(i);
+            //Debug.Log(i);
             cm = pm.cm;
             pm.changerole.setCount(characterID[i]);
             if (pm.playerID != controlId)
             {
                 
-                Debug.Log("vc" + vc.targ);
+               // Debug.Log("vc" + vc.targ);
                 pm.cm.SetActive(false);
                 ph.enabled = false;
-                //pm.enabled = false;
+                pm.enabled = false;
                 ps.enabled = false;
 
                 myplayer[i].GetComponent<Invector.CharacterController.vThirdPersonInput>().enabled = false;

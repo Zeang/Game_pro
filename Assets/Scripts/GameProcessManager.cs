@@ -34,7 +34,7 @@ public class GameProcessManager : MonoBehaviour
     //当前的优势方 -1为平，0为左，1为右
     private int superiority = -1;
     private float TimeRecord = 0;
-    private int controlID = 1;//本机玩家编号
+    private int controlID = 4;//本机玩家编号
 
     private float gameTimeAll = 0;
     private int controlSide;//本机控制角色对应的一方
@@ -147,6 +147,7 @@ public class GameProcessManager : MonoBehaviour
                 item.AddComponent<PlayerSide>();
                 item.GetComponent<PlayerSide>().side = 0;
                 item.GetComponent<PlayerSide>().color1 = leftColor;
+                item.tag = "PlayerRed";
             }
         }
         rightPlayer = new GameObject[] { playerManager.myplayer[3], playerManager.myplayer[4], playerManager.myplayer[5] };
@@ -157,12 +158,13 @@ public class GameProcessManager : MonoBehaviour
                 item.AddComponent<PlayerSide>();
                 item.GetComponent<PlayerSide>().side = 1;
                 item.GetComponent<PlayerSide>().color2 = rightColor;
+                item.tag = "PlayerBlue";
             }
         }
 
         //Physics.OverlapSphere(Vector3 position, float radius, int layerMask)
 
-        Collider[] colliders =  Physics.OverlapSphere(transform.position, SearchArea, 1<<LayerMask.NameToLayer("Player"));
+        Collider[] colliders =  Physics.OverlapSphere(transform.position, SearchArea, 1<<LayerMask.NameToLayer("Shootable"));
         foreach(Collider co in colliders)
         {
             if (co.gameObject.GetComponent<PlayerSide>().side == 0)
