@@ -50,7 +50,7 @@ public class PlayerShooting : MonoBehaviour
         }
 
        
-        void Update ()
+        void FixedUpdate ()
         {
 
             // Add the time since Update was last called to the timer.
@@ -152,7 +152,8 @@ public class PlayerShooting : MonoBehaviour
                     g.GetComponent<EnemyHealth>().TakeDamage(damagePerShot, shootHit.point, playerID);
                     Debug.Log(g.GetComponent<EnemyHealth>());
                     Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
-                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    GameObject gb = Resources.Load("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    Debug.Log("shooting in enemy");
                     Instantiate(gb, shootHit.point, fireRotation);
                 }
                 if (g.CompareTag("PlayerBlue"))
@@ -162,7 +163,7 @@ public class PlayerShooting : MonoBehaviour
                     Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
                     Debug.Log("shoothit" + shootHit.point);
                     Debug.Log("fireRotation" + fireRotation);
-                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    GameObject gb = Resources.Load("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
                     Instantiate(gb, shootHit.point, fireRotation);
 
                 }
@@ -176,7 +177,7 @@ public class PlayerShooting : MonoBehaviour
                     g.GetComponent<EnemyHealth>().TakeDamage(damagePerShot, shootHit.point, playerID);
                     Debug.Log(g.GetComponent<EnemyHealth>());
                     Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
-                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    GameObject gb = Resources.Load("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
                     Instantiate(gb, shootHit.point, fireRotation);
                 }
                 if (g.CompareTag("PlayerRed"))
@@ -186,7 +187,7 @@ public class PlayerShooting : MonoBehaviour
                     Quaternion fireRotation = Quaternion.Euler(Cam.transform.forward);
                     Debug.Log("shoothit" + shootHit.point);
                     Debug.Log("fireRotation" + fireRotation);
-                    GameObject gb = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
+                    GameObject gb = Resources.Load("Assets/Prefabs/explosion-blue.prefab", typeof(GameObject)) as GameObject;
                     Instantiate(gb, shootHit.point, fireRotation);
 
                 }

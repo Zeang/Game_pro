@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
 
-        healthSlider.value = currentHealth;
+        //healthSlider.value = currentHealth;
 
         //playerAudio.Play ();
 

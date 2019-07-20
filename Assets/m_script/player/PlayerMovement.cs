@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     int jump = 0;
     int count = 0;
     public Vector3 startpoint;
-    public float jumpSpeed=5f;
+    public float jumpSpeed=4f;
 
     //rotation Sensitivity
     private float lookSensitivity = 5.0f;
@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("jump");
             
-            playerRigidbody.velocity += new Vector3(0, 20, 0);
+            playerRigidbody.velocity += new Vector3(0, 8, 0);
             playerRigidbody.AddForce(Vector3.up * jumpSpeed);
             jump = 1;
             

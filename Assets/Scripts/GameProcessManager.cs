@@ -34,7 +34,7 @@ public class GameProcessManager : MonoBehaviour
     //当前的优势方 -1为平，0为左，1为右
     private int superiority = -1;
     private float TimeRecord = 0;
-    private int controlID = 4;//本机玩家编号
+    private int controlID = 2;//本机玩家编号
 
     private float gameTimeAll = 0;
     private int controlSide;//本机控制角色对应的一方

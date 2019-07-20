@@ -43,7 +43,7 @@ public class AIShooting : MonoBehaviour
             }
             else if (this.CompareTag("AIBlue"))
             {
-                if(goal.tag != "PlayerBlue")
+                if(goal.tag != "PlayerRed")
                 {
                     isAim = false;
                 }

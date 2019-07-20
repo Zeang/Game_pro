@@ -34,7 +34,7 @@ public class changeGun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            count = (count + 1) % 3;
+            count = (count + 1) % 2;
             
         }
         if (count == 0)
