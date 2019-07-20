@@ -46,10 +46,10 @@ public class EnemyHealth : MonoBehaviour
         {
             transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);//每秒移动而不是每帧
         }
-        if (playerHealth.isDead)
-        {
-            Destroy(gameObject, 2f);
-        }
+        //if (playerHealth.isDead)
+        //{
+        //    Destroy(gameObject, 2f);
+        //}
 
         //sl.value = per;
     }
