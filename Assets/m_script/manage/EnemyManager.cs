@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
 
         {
             Debug.Log(playerHealth.currentHealth);
-            if (playerHealth.isDead == true)
+            if (playerHealth.isDead == 1)
             {
                 return;
             }

@@ -37,7 +37,7 @@ public class playerManagement : MonoBehaviour
 
         for (int i = 0; i < a.Length; i++)
         {
-            Debug.Log(a.Length);
+            //Debug.Log(a.Length);
             myplayer[i] = GameObject.Instantiate(player, a[i], b[i]);
             ph = myplayer[i].GetComponent<PlayerHealth>();
             eattack.player = myplayer[controlId];
@@ -91,7 +91,7 @@ public class playerManagement : MonoBehaviour
     void FixedUpdate()
     {
         
-        if (phc.isDead == true)
+        if (phc.isDead == 1)
         {
             Debug.Log("rebirth");
             isdead = true;

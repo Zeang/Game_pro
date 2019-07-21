@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using network;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, ISerializable
 {
     public Transform cameratranform;
     public float speed = 6f;
@@ -32,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     //camera
     [SerializeField]
     private Camera Cam;
+
+    //isJump
+    private int is_Jump = 0;
+    private int is_Shooting = 0;
     
     void Awake()//无论脚本是否可运行都会执行，适合用于设置初始值
     {
@@ -52,6 +57,26 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+
+    public void Serialize(ByteBuffer buffer)
+    {
+        buffer.WriteVector3(transform.position);
+        buffer.WriteVector3(transform.forward);
+        buffer.WriteInt(is_Jump);
+        buffer.WriteInt(is_Shooting);
+
+        is_Shooting = 0;
+        is_Jump = 0;
+    }
+
+    public void Deserialize(ByteBuffer buffer)
+    {
+        transform.position = buffer.ReadVector3();
+        transform.forward = buffer.ReadVector3();
+        is_Jump = buffer.ReadInt();
+        is_Shooting = buffer.ReadInt();
+    }
+
     void OnTriggerEnter(Collider other)
     {
 

@@ -26,7 +26,7 @@ namespace network
             m_debug = File.OpenWrite("G:\\debug.txt");
             writer = new StreamWriter(m_debug);
             m_queue = new ConcurrentQueue<QueueItem>();
-            SetClient(false);
+            
         }
 
         // Update is called once per frame
