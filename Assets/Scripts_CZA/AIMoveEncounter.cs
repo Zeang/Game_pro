@@ -49,12 +49,12 @@ public class AIMoveEncounter : MonoBehaviour
     //内在物理性质变化 加速度 速度 面向角度
     private void PerformAttribute()
     {
-        AI2Enemy = (enemy.transform.position - rb.position).normalized;
-        if ((enemy.transform.position - rb.position).magnitude > 10)
+        AI2Enemy = (enemy.transform.position - transform.position).normalized;
+        if ((enemy.transform.position - transform.position).magnitude > 10)
         {
             accelerate = AI2Enemy * max_accelerate;
         }
-        else if ((enemy.transform.position - rb.position).magnitude < 6)
+        else if ((enemy.transform.position - transform.position).magnitude < 6)
         {
             accelerate = -1.0f * AI2Enemy * max_accelerate;
         }
@@ -91,11 +91,11 @@ public class AIMoveEncounter : MonoBehaviour
     private void PerformRotate()
     {
         //当前方向和目标方向的角度
-        float angle = Quaternion.Angle(rb.rotation, Quaternion.LookRotation(AI2Enemy));
+        float angle = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(AI2Enemy));
         
         //每次Update 旋转步长
         float step = LookSensitivity * angle * Time.deltaTime;
-        rb.rotation = Quaternion.RotateTowards(rb.rotation, Quaternion.LookRotation(AI2Enemy), step);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(AI2Enemy), step);
     }
 
     private void PerformLandScape()
@@ -120,7 +120,8 @@ public class AIMoveEncounter : MonoBehaviour
     {
         if(true == JumpState)
         {
-            rb.velocity += new Vector3(0, 3, 0);
+            rb.velocity += new Vector3(0, 8, 0);
+            
             JumpState = false;
         }
     }

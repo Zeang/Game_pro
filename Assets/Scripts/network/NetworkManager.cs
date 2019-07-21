@@ -23,6 +23,7 @@ namespace network
         // Start is called before the first frame update
         void Start()
         {
+            SetClient(true, 174985837);
             m_debug = File.OpenWrite("G:\\debug.txt");
             writer = new StreamWriter(m_debug);
             m_queue = new ConcurrentQueue<QueueItem>();

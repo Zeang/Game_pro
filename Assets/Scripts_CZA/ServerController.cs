@@ -30,6 +30,7 @@ public class ServerController : MonoBehaviour
         buffer = new ByteBuffer();
         PlayerRed = GameObject.FindGameObjectsWithTag("PlayerRed");
         PlayerBlue = GameObject.FindGameObjectsWithTag("PlayerBlue");
+        //Net.GetComponent<NetworkManager>().SetClient(false);
 
     }
 
@@ -50,18 +51,18 @@ public class ServerController : MonoBehaviour
         {
             PlayerBlue[i].GetComponent<PlayerMovement>().Serialize(buffer);
         }
-        Net.TriggerEvent(Client_Id * 100 + Index_Event++, buffer);
+        Net.TriggerEvent(Client_Id * 100 + Index_Event, buffer);
+        Index_Event++;
 
-
-        for(int i = 0; i < AIRed.Length; i++)
-        {
-            AIRed[i].GetComponent<PlayerMovement>().Serialize(buffer);
-        }
-        for(int i = 0; i < AIBlue.Length; i++)
-        {
-            AIBlue[i].GetComponent<PlayerMovement>().Serialize(buffer);
-        }
-        Net.TriggerEvent(Client_Id * 100 + Index_Event++, buffer);
+        //for(int i = 0; i < AIRed.Length; i++)
+        //{
+        //    AIRed[i].GetComponent<PlayerMovement>().Serialize(buffer);
+        //}
+        //for(int i = 0; i < AIBlue.Length; i++)
+        //{
+        //    AIBlue[i].GetComponent<PlayerMovement>().Serialize(buffer);
+        //}
+        //Net.TriggerEvent(Client_Id * 100 + Index_Event, buffer);
 
     }
 }

@@ -74,7 +74,7 @@ public class AIShooting : MonoBehaviour
     {
         
         Ray ray = new Ray(transform.position, hit.transform.position - transform.position);
-        Debug.Log("Shooting");
+        //Debug.Log("Shooting");
         Debug.DrawLine(ray.origin, hit.point, Color.white);
         if(goal)
             goal.GetComponent<PlayerHealth>().TakeDamage(20);

@@ -28,12 +28,15 @@ public class ClientController : MonoBehaviour
         Id = 1010;
         Index_Event = 0;
 
-        Net.RegisterEvent(Id * 100 + Index_Event++, SyPlayerMovement);
-        Net.RegisterEvent(Id * 100 + Index_Event++, SyAIMovement);
+        Net.RegisterEvent(Id * 100 + Index_Event, SyPlayerMovement);
+        Index_Event++;
+        Net.RegisterEvent(Id * 100 + Index_Event, SyAIMovement);
         PlayerRed = GameObject.FindGameObjectsWithTag("PlayerRed");
         PlayerBlue = GameObject.FindGameObjectsWithTag("PlayerBlue");
 
         buffer = new ByteBuffer();
+
+        //Net.GetComponent<NetworkManager>().SetClient(true);
     }
 
     public void SyPlayerMovement(int Event_id, ByteBuffer event_data)
